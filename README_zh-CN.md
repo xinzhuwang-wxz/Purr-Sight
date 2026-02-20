@@ -4,7 +4,7 @@
 
 ![Purr-Sight Logo](docs/assets/logo.png)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
@@ -200,7 +200,7 @@ Purr-Sight/
 
 ## 📄 许可证
 
-本项目基于 MIT 许可证分发。详情请参阅 `LICENSE` 文件。
+本项目基于 Apache License 2.0 许可证分发。详情请参阅 `LICENSE` 文件。
 
 ---
 <div align="center">
