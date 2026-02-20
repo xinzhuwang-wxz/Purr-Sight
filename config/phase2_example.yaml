@@ -1,0 +1,67 @@
+# Phase 2 Training Configuration Example
+# This configuration demonstrates how to set up Phase 2 training with differential learning rates
+
+# Common settings
+common:
+  seed: 42
+  project_name: "Purr-Sight"
+  output_dir: "outputs"
+  device: "mps"  # auto, cuda, mps, cpu
+  log_every: 10
+  save_every: 1
+
+# Phase 2: Multimodal Instruction Tuning
+phase2:
+  experiment_name: "phase2_training_with_pretrained_aligner"
+  
+  # Model Paths
+  llm_model_path: "models/Qwen2.5-0.5B-Instruct"
+  
+  # CRITICAL: Path to Phase 1 checkpoint file (使用你之前训练好的)
+  # This should point to the actual checkpoint file (e.g., aligner.pt)
+  # NOT a directory
+  adapter_path: "checkpoints/alignment/9caa59d265f14e8eb4d8c704a827d775_20260201_025845/aligner.pt"
+  
+  # Data
+  data_path: "data/phase2"  # Directory containing train.jsonl
+  batch_size: 2  # Small batch for testing
+  gradient_accumulation_steps: 1
+  epochs: 3  # 增加到3个epochs
+  
+  # Learning Rates - 分组学习率策略（进一步降低避免NaN）
+  # Base LR: 基础学习率
+  learning_rate: 0.00005  # 5e-5 (进一步降低)
+  
+  # Projector LR: 投影头学习率 (自动设置为 5x base = 2.5e-4)
+  # 投影头从头训练，需要较大学习率以快速收敛
+  # projector_lr: 0.00025  # 可选：手动指定，否则自动为 5x learning_rate
+  
+  # LoRA LR: LoRA适配器学习率 (自动设置为 0.5x base = 2.5e-5)
+  # LoRA微调预训练模型，需要较小学习率保持稳定
+  # lora_lr: 0.000025  # 可选：手动指定，否则自动为 0.5x learning_rate
+  
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  gradient_clip_val: 0.5  # 添加梯度裁剪防止梯度爆炸
+  num_workers: 0  # Disable multiprocessing for testing
+  max_length: 512
+  
+  # Projector Settings
+  projector:
+    hidden_dim: 2048
+    num_tokens: 4
+    
+  # LoRA Settings (for efficient fine-tuning)
+  lora:
+    enabled: true
+    r: 16
+    lora_alpha: 32
+    lora_dropout: 0.1
+    bias: "none"
+    task_type: "CAUSAL_LM"
+    target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+    
+  # Freeze Settings
+  freeze_encoders: true    # Always freeze encoders in Phase 2
+  freeze_projector: false  # Train the projector (使用较大学习率)
+  freeze_llm: false        # LoRA handles LLM freezing automatically (使用较小学习率)

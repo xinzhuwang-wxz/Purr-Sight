@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-02-01T01:37:13.708660",
+  "tests": {
+    "phase1_checkpoint": {
+      "passed": true,
+      "checkpoint_path": "checkpoints/alignment/1652a3d3446641e0a8a03a427c171eeb_20260131_025643/aligner.pt"
+    },
+    "checkpoint_loading": {
+      "passed": true
+    },
+    "phase2_config": {
+      "passed": true
+    },
+    "inference_module": {
+      "passed": true
+    },
+    "property_tests": {
+      "passed": true
+    }
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed_tests": 5,
+    "failed_tests": 0,
+    "success_rate": "100.0%"
+  }
+}

@@ -1,0 +1,46 @@
+# Validation Configuration for Phase 2 Training
+# This configuration is optimized for quick validation runs
+
+# Required paths
+phase1_checkpoint_path: "checkpoints/alignment/5715425b468c42ed9153039b095fca69_20260127_013849/aligner.pt"
+data_dir: "data/instruction"
+
+# Model configuration
+llm_model_name: "Qwen/Qwen2.5-0.5B"
+aligner_dim: 512
+llm_hidden_dim: 896
+projector_hidden_dim: 2048
+projector_num_layers: 2
+
+# LoRA configuration
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.1
+lora_target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+
+# Training hyperparameters (optimized for validation)
+learning_rate: 2e-4
+weight_decay: 0.01
+batch_size: 2  # Small batch size for validation
+num_epochs: 1  # Single epoch for validation
+warmup_steps: 5  # Minimal warmup
+gradient_clip_val: 1.0
+
+# Data configuration
+max_text_length: 256  # Shorter sequences for validation
+num_workers: 0  # No multiprocessing for validation
+
+# Logging and checkpointing
+log_every_n_steps: 1
+save_every_n_epochs: 1
+checkpoint_dir: "checkpoints/validation"
+mlflow_experiment_name: "purrsight-phase2-validation"
+
+# Hardware configuration
+num_gpus: 1
+distributed_backend: "nccl"
+
+# Environment
+seed: 42
+device: "auto"
+output_dir: "outputs/validation"

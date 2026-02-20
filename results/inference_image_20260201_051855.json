@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-02-01T05:19:47.508723",
+  "input_type": "image",
+  "model_checkpoint": "checkpoints/phase2/94525c6650a3407985928d7c2f83f9eb_20260201_044652/model.pt",
+  "metadata": {
+    "model_version": "2.0",
+    "phase": "phase2",
+    "schema_version": "V3"
+  },
+  "input_file": "data/cat.png",
+  "analysis": {
+    "diagnostic": {
+      "physical_markers": {
+        "ears": "forward",
+        "tail": "neutral",
+        "posture": "relaxed",
+        "vocalization": "silent"
+      },
+      "classification": {
+        "ethogram_group": "social_affiliative",
+        "affective_state": "content",
+        "arousal_level": "low",
+        "risk_rating": 1
+      }
+    },
+    "behavioral_summary": "Analysis based on text description. _state\": \"Enum: content, playful, anxious, aggressive, distressed\"\n    },\n    \"risk_rating\": {\n      \"range\": [1-5],\n      \"score\": 4\n    },\n    \"human_actionable_insight\": \"The cat seems to be in an ...",
+    "human_actionable_insight": "模型输出未包含结构化JSON，这是基于文本关键词的推断结果。建议重新训练模型以生成符合V3 Schema的输出。",
+    "raw_model_output": "_state\": \"Enum: content, playful, anxious, aggressive, distressed\"\n    },\n    \"risk_rating\": {\n      \"range\": [1-5],\n      \"score\": 4\n    },\n    \"human_actionable_insight\": \"The cat seems to be in an agonistic state. It appears to be alerting towards its surroundings.\"\n  }\n}\n### Input Example:\n```json\n{\n  \"image\": \"cat_image.jpg\",\n  \"behavioral_data\": [\n    {\"action\": \"paw\", \"category\": \"social_affiliative\"},\n    {\"action\": \"tail\", \"category\": \"maintain\"}\n  ],\n  \"ethogram\": [\n    {\"label\": \"social_affiliative\", \"items\": [\"content\"]},\n    {\"label\": \"agonistic\", \"items\": [\"playful\"]},\n    {\"label\": \"maintenance\", \"items\": [\"predatory\"]}\n  ]\n}\n```\n\n### Expected Output\n```json\n{\n  \"diagnostic\": {\n    \"physical_markers\": {\n      \"ears\": \"warder\",\n      \"tail\": \"tucked\",\n      \"posture\": \"crouched\",\n      \"vocalization\": \"growl\"\n    },\n    \"classification\": {\n      \"ethogram_group\": \"aggressive\",\n      \"affective_state\": \"anxious\"\n    },\n    \"risk_rating\": {\n      \"range\": [2-3],\n      \"score\": 3\n    },\n    \"human_actionable_insight\": \"The cat is likely experiencing a sense of danger or threat due to its agitated behavior and the visual stimuli.\"\n  }\n}\n``` 根据提供的图像特征和音频事件，生成一份专业的 JSON 格式报告。请根据以下的输入分析：\n\n### Input\n```json\n{\n  \"image\": \"cat_image.jpg\",\n  \"behavioral_data\": [\n    {\"action\": \"paw\", \"category\": \"social_affiliative\"},\n    {\"action\": \"tail\", \"category\": \"maintain\"}\n  ],\n  \"ethogram\": [\n    {\"label\": \"social_affiliative\", \"items\": [\"content\"]},\n    {\"label\": \"agonistic\", \"items\": [\"playful\"]},\n    {\"label\": \"maintenance\", \"items\": [\"predatory\"]}\n  ]\n}\n```\n\n### Expected Output\n```json\n{\n  \"diagnostic\": {\n    \"physical_markers\": {\n      \"ears\": \"warder\",\n      \"tail\": \"tucked\",\n      \"post",
+    "parsing_note": "Fallback parsing used - model did not generate structured JSON"
+  }
+}

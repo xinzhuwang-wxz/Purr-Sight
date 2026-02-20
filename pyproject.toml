@@ -1,0 +1,61 @@
+[project]  
+name = "purrsight"  
+version = "0.1.0"  
+description = "PurrSight: Lightweight Edge AI for Feline Emotion & Behavior Recognition"  
+authors = [{name = "Maxen Wong", email = "wangxinzhu3141@163.com"}]  
+license = {text = "Apache-2.0"}  
+readme = "README.md"  
+requires-python = ">=3.10"  
+classifiers = [  
+    "Programming Language :: Python :: 3.10",  
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",  
+]
+# 核心依赖
+dependencies = [
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+    "torchaudio>=2.1.0",
+    "transformers>=4.36.2",  # 文本编码器+AutoTokenizer
+    "open-clip-torch>=2.24.0",  # OpenCLIP对比学习逻辑
+    "numpy>=1.26.2",
+    "opencv-python>=4.8.1",  # 图像/视频处理
+    "pillow>=10.0.0",  # PIL图像处理（PIL.Image）
+    "timm>=0.9.0",  # MobileNetV4图像编码器
+    "onnxruntime>=1.16.0",  # 端侧推理优化
+    "pyyaml>=6.0.1",  # 配置文件解析
+    "pydantic>=2.4.2",  # JSON格式验证
+    "ffmpeg-python>=0.2.0",  # 视频音频分离
+    "scipy>=1.11.4",  # 帧间差分计算
+    "librosa>=0.10.1",  # 音频特征提取
+    "soundfile>=0.12.1",  # 音频读写
+    "peft>=0.7.1",  # LoRA适配器
+    "accelerate>=0.25.0",  # 分布式训练
+    "pytorch-lightning>=2.0.0",  # PyTorch Lightning框架
+    "mlflow>=2.8.0",  # 实验跟踪和模型注册
+    "tqdm>=4.66.0",  # 进度条
+]
+
+[project.urls]  
+Homepage = "https://github.com/xinzhuwang-wxz/Purr-Sight"  
+
+[project.optional-dependencies]  
+# 开发依赖（可选）  
+dev = [  
+    "pytest>=7.4.3",  # 单元测试  
+    "hypothesis>=6.92.0",  # 属性测试  
+    "pytest-cov>=4.1.0",  # 测试覆盖率  
+    "mkdocs>=1.5.3",  # 文档生成  
+    "pre-commit>=3.5.0",  # 代码规范检查  
+    "black>=23.12.1",  # 代码格式化  
+    "isort>=5.12.0",  # 导入排序  
+    "mypy>=1.8.0",  # 类型检查  
+]  
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["purrsight*"]
+exclude = ["test*", "data*", "models*", "config*", "*.tests*", "*.tests.*", "*.*.tests"]
+
+[build-system]  
+requires = ["setuptools>=61.0"]  
+build-backend = "setuptools.build_meta"  

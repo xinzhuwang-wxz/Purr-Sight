@@ -1,0 +1,35 @@
+# Phase 1 Training Configuration - Online Data Loading
+# 在线模式：训练时实时加载和预处理数据
+# 注意：Phase 1 使用对比学习数据（简单的模态对应关系）
+
+common:
+  seed: 42
+  project_name: "Purr-Sight"
+  output_dir: "outputs"
+  device: "auto"  # Let it auto-detect MPS
+  log_every: 50
+  save_every: 1
+
+phase1:
+  experiment_name: "alignment_phase1_online_mps"
+  
+  # 数据路径 - 在线模式使用原始数据文件
+  data_path: "data/phase1/online/train.jsonl"
+  
+  # 训练参数
+  batch_size: 8
+  epochs: 3  # More epochs to see if it progresses
+  learning_rate: 1.0e-3
+  weight_decay: 0.01
+  warmup_steps: 10
+  num_workers: 0  # Disable multiprocessing
+  val_split: 0.1
+  
+  # 在线模式：不使用预处理数据
+  use_preprocessed: false
+  preprocessed_dir: null
+  
+  # 模型参数
+  input_dim: 512
+  output_dim: 512
+  use_temperature_scaling: true

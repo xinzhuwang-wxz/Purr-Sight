@@ -1,0 +1,8 @@
+{"text": "a cat in a photo", "image": "data/cat.png"}
+{"text": "a human speaking", "audio": "data/audio.m4a"}
+{"text": "a video of movement", "image": "data/cat.png", "audio": "data/audio.m4a"}
+{"text": "animal behavior observation", "image": "data/cat.png"}
+{"text": "audio recording of sounds", "audio": "data/audio.m4a"}
+{"text": "cat sitting calmly", "image": "data/cat.png"}
+{"text": "voice and speech", "audio": "data/audio.m4a"}
+{"text": "feline in frame", "image": "data/cat.png"}

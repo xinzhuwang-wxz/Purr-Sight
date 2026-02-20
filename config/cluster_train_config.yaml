@@ -1,0 +1,46 @@
+# Cluster Training Configuration for Phase 2 Training
+# This configuration is optimized for multi-GPU cluster deployment
+
+# Required paths
+phase1_checkpoint_path: "checkpoints/alignment/5715425b468c42ed9153039b095fca69_20260127_013849/aligner.pt"
+data_dir: "data/instruction"
+
+# Model configuration
+llm_model_name: "Qwen/Qwen2.5-0.5B"
+aligner_dim: 512
+llm_hidden_dim: 896
+projector_hidden_dim: 2048
+projector_num_layers: 2
+
+# LoRA configuration
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.1
+lora_target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+
+# Training hyperparameters (optimized for cluster training)
+learning_rate: 2e-4
+weight_decay: 0.01
+batch_size: 16  # Larger batch size for cluster training
+num_epochs: 10
+warmup_steps: 1000  # More warmup steps for stability
+gradient_clip_val: 1.0
+
+# Data configuration
+max_text_length: 512
+num_workers: 8  # More workers for cluster training
+
+# Logging and checkpointing
+log_every_n_steps: 50  # Less frequent logging for cluster
+save_every_n_epochs: 1
+checkpoint_dir: "checkpoints/cluster_phase2"
+mlflow_experiment_name: "purrsight-phase2-cluster"
+
+# Hardware configuration (will be overridden by cluster_train.sh)
+num_gpus: 4  # Default for single node, overridden by script
+distributed_backend: "nccl"
+
+# Environment
+seed: 42
+device: "auto"
+output_dir: "outputs/cluster"

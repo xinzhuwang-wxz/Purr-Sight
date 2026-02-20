@@ -1,0 +1,87 @@
+# Phase 2 Training Configuration for GPU Cluster
+# Optimized for multi-GPU distributed training on Linux clusters
+
+# Model Configuration
+llm_model_name: "models/Qwen2.5-0.5B-Instruct"
+phase1_checkpoint_path: "checkpoints/alignment/9caa59d265f14e8eb4d8c704a827d775_20260201_025845/aligner.pt"
+
+# Architecture
+aligner_dim: 512
+llm_hidden_dim: 896  # Qwen2.5-0.5B hidden size
+projector_hidden_dim: 2048
+projector_num_layers: 2
+
+# LoRA Configuration
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.1
+lora_target_modules:
+  - "q_proj"
+  - "v_proj"
+  - "k_proj"
+  - "o_proj"
+
+# Training Hyperparameters (optimized for GPU cluster)
+learning_rate: 2.0e-4  # Base learning rate
+weight_decay: 0.01
+batch_size: 16  # Per GPU batch size (increase for V100/A100)
+num_epochs: 10
+warmup_steps: 500
+gradient_clip_val: 1.0
+
+# Data Configuration
+data_dir: "data/phase2"
+max_text_length: 512
+num_workers: 4  # Data loading workers per GPU
+
+# Logging and Checkpointing
+log_every_n_steps: 10
+save_every_n_epochs: 1
+checkpoint_dir: "checkpoints/phase2"
+output_dir: "outputs/phase2"
+
+# MLflow Configuration
+mlflow_experiment_name: "phase2_training_cluster"
+mlflow_tracking_uri: null  # Use default (./mlruns)
+
+# Distributed Training Configuration
+num_gpus: 4  # Number of GPUs per node (will be overridden by torchrun)
+distributed_backend: "nccl"  # NCCL for NVIDIA GPUs
+
+# Device Configuration
+device: "cuda"  # Use CUDA for GPU training
+seed: 42
+
+# Performance Optimization
+gradient_accumulation_steps: 1  # Increase if OOM
+mixed_precision: true  # Use automatic mixed precision (fp16)
+compile_model: false  # PyTorch 2.0 compile (experimental)
+
+# Memory Optimization
+gradient_checkpointing: true  # Enable gradient checkpointing for LLM
+pin_memory: true  # Pin memory for faster data transfer
+persistent_workers: true  # Keep data loading workers alive
+
+# Cluster-Specific Settings
+# These can be overridden by environment variables or command-line arguments
+cluster:
+  # SLURM integration (if using SLURM)
+  use_slurm: false
+  slurm_job_name: "purrsight_phase2"
+  slurm_partition: "gpu"
+  slurm_time: "24:00:00"
+  slurm_nodes: 1
+  slurm_gpus_per_node: 4
+  slurm_cpus_per_task: 8
+  slurm_mem: "64G"
+  
+  # Network settings
+  master_addr: "localhost"  # Will be set by torchrun
+  master_port: 29500
+  
+  # Timeout settings
+  timeout_minutes: 1440  # 24 hours
+  
+  # Monitoring
+  enable_profiling: false
+  profile_steps: 100

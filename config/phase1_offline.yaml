@@ -1,0 +1,35 @@
+# Phase 1 Training Configuration - Offline Data Loading
+# 离线模式：使用预处理好的数据，加速训练
+# 注意：需要使用正式的对齐数据（Phase 1 对比学习数据）
+
+common:
+  seed: 42
+  project_name: "Purr-Sight"
+  output_dir: "outputs"
+  device: "auto"
+  log_every: 50
+  save_every: 1
+
+phase1:
+  experiment_name: "alignment_phase1_offline"
+  
+  # 数据路径 - 离线模式使用预处理数据的索引文件
+  data_path: "data/phase1/offline/preprocessed/index.jsonl"
+  
+  # 训练参数
+  batch_size: 16
+  epochs: 3  # 测试用，实际训练可以增加
+  learning_rate: 1.0e-3
+  weight_decay: 0.01
+  warmup_steps: 500
+  num_workers: 4
+  val_split: 0.1
+  
+  # 离线模式：使用预处理数据
+  use_preprocessed: true
+  preprocessed_dir: "data/phase1/offline/preprocessed"
+  
+  # 模型参数
+  input_dim: 512
+  output_dim: 512
+  use_temperature_scaling: true
